@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
-import { ArrowRightLeft, Volume2, Copy, X, Zap, Sparkles } from 'lucide-react';
+import { ArrowRightLeft, Volume2, Copy, X, Zap, Sparkles, LayoutDashboard } from 'lucide-react';
 import { LanguageSelector } from './LanguageSelector';
 import { translateText, playTextToSpeech } from '../services/geminiService';
-import { TranslationState } from '../types';
+import { TranslationState, AppView } from '../types';
 import { Button } from './Button';
 
-export const TranslationPanel: React.FC = () => {
+interface TranslationPanelProps {
+    onNavigate: (view: AppView) => void;
+}
+
+export const TranslationPanel: React.FC<TranslationPanelProps> = ({ onNavigate }) => {
   const [state, setState] = useState<TranslationState>({
     sourceText: '',
     targetText: '',
@@ -206,10 +210,19 @@ export const TranslationPanel: React.FC = () => {
         </div>
       </div>
       
-      <div className="text-center mt-10">
+      <div className="mt-10 flex flex-col items-center gap-4">
         <span className="inline-block bg-white px-6 py-2 rounded-full text-slate-400 text-sm font-bold shadow-sm border border-slate-100">
             🌟 Belajar Bahasa Itu Menyenangkan! 🌟
         </span>
+        
+        <Button 
+            variant="ghost" 
+            onClick={() => onNavigate(AppView.ADMIN_DASHBOARD)}
+            className="text-xs text-sky-400 opacity-70 hover:opacity-100"
+        >
+            <LayoutDashboard size={14} className="mr-1" />
+            Ke Dashboard Admin
+        </Button>
       </div>
     </div>
   );

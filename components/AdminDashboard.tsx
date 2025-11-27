@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { Button } from './Button';
-import { AdminSettings } from '../types';
-import { Save, Upload, Trash2 } from 'lucide-react';
+import { AdminSettings, AppView } from '../types';
+import { Save, Upload, Trash2, ArrowLeft } from 'lucide-react';
 
 interface AdminDashboardProps {
   settings: AdminSettings;
   onUpdateSettings: (newSettings: AdminSettings) => void;
+  onNavigate: (view: AppView) => void;
 }
 
-export const AdminDashboard: React.FC<AdminDashboardProps> = ({ settings, onUpdateSettings }) => {
+export const AdminDashboard: React.FC<AdminDashboardProps> = ({ settings, onUpdateSettings, onNavigate }) => {
   const [formState, setFormState] = useState<AdminSettings>(settings);
   const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
 
@@ -36,8 +37,14 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ settings, onUpda
 
   return (
     <div className="max-w-2xl mx-auto p-8">
-      <div className="bg-white rounded-xl shadow-lg p-6">
-        <h2 className="text-2xl font-bold text-slate-800 mb-6 pb-4 border-b">Pengaturan Kamus</h2>
+      <div className="bg-white rounded-xl shadow-lg p-6 border-2 border-slate-100">
+        <div className="flex items-center justify-between mb-6 pb-4 border-b">
+            <h2 className="text-2xl font-bold text-slate-800">Pengaturan Kamus</h2>
+            <Button variant="ghost" onClick={() => onNavigate(AppView.HOME)} className="!py-2 !px-3 text-sm">
+                <ArrowLeft size={16} className="mr-2" />
+                Kembali
+            </Button>
+        </div>
 
         {message && (
           <div className={`mb-6 p-4 rounded-lg ${message.type === 'success' ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'}`}>
@@ -104,7 +111,10 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ settings, onUpda
               </div>
           </div>
 
-          <div className="pt-4 flex justify-end">
+          <div className="pt-4 flex justify-end gap-3">
+             <Button type="button" variant="secondary" onClick={() => onNavigate(AppView.HOME)}>
+               <ArrowLeft size={18} className="mr-2" /> Kembali ke Kamus
+            </Button>
             <Button type="submit">
                <Save size={18} className="mr-2" /> Simpan Perubahan
             </Button>

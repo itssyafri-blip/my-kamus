@@ -48,7 +48,7 @@ const App: React.FC = () => {
 
       <main className="flex-grow">
         {currentView === AppView.HOME && isAdminLoggedIn && (
-          <TranslationPanel />
+          <TranslationPanel onNavigate={setCurrentView} />
         )}
 
         {currentView === AppView.ADMIN_LOGIN && (
@@ -62,6 +62,7 @@ const App: React.FC = () => {
           <AdminDashboard 
             settings={adminSettings}
             onUpdateSettings={handleUpdateSettings}
+            onNavigate={setCurrentView}
           />
         )}
       </main>
