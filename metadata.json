@@ -1,0 +1,7 @@
+{
+  "name": "Kamus Belajar Umar Rasyid Al-Fatih",
+  "description": "Aplikasi kamus terjemahan profesional dengan fitur suara canggih, manajemen admin, dan kustomisasi.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
